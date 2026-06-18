@@ -1,0 +1,39 @@
+PARTY NOW RENTALS — HOW TO ADD YOUR PHOTOS
+==========================================
+
+The website works right now with styled placeholders. To show your real
+photos, save each image into THIS "images" folder using the EXACT names
+below (all lowercase). Refresh the page and they appear automatically.
+
+LOGO
+----
+logo.png   -> Your "PARTY Now RENTALS" logo (transparent PNG is best).
+              Replaces the text logo in the header and footer on its own.
+
+HERO (big banner at the top)
+----------------------------
+hero.jpg   -> A wide, pretty event photo. Good pick: the elegant candlelit
+              dinner OR the burgundy themed long table.
+
+ABOUT (Melanie & Cathy box)
+---------------------------
+family.jpg -> Your family photo (the 2 sisters + kids in the matching
+              "Party Now Rentals" shirts).
+
+GALLERY (the "Recent Events" grid — 9 photos)
+---------------------------------------------
+g1.jpg -> Wedding ceremony, rows of white folding chairs (Spanish/white venue)
+g2.jpg -> Baby shower long table, tan gauze runner, "Love in Bloom" arch
+g3.jpg -> Elegant candlelit dinner, white calla lilies (nighttime)
+g4.jpg -> Poolside white rectangle tables & chairs (daytime, palms)
+g5.jpg -> Backyard reception, black round tables + tan umbrellas + white chairs
+g6.jpg -> Cocktail hour, black high-top tables + lounge area
+g7.jpg -> Elegant place setting, gold flatware + scalloped plates (pool view)
+g8.jpg -> Kids birthday, round tables, tropical centerpiece + bounce house
+g9.jpg -> Burgundy/red themed long table, candles, heaters & slide
+
+TIPS
+----
+- Keep the names EXACTLY as above. JPG or PNG both fine (keep the .jpg name).
+- Landscape photos look best for the hero and gallery.
+- That's it — no code needed. Just drop the files in and refresh.
