@@ -1,0 +1,20 @@
+# Party Now Rentals
+
+> Family-owned event and party rental company serving Southern California. We rent tables, chairs, linens, cocktail tables, outdoor heaters, full bar setups, and custom themed decor for weddings, birthdays, baby showers, graduations, and corporate events. Delivery, professional setup, and pickup included. Bilingual (English/Spanish). Call or text (626) 257-6514.
+
+## Main pages
+- [Home](https://partynowrentalspnr.com/): Event rentals in Southern California
+- [Booking calendar](https://partynowrentalspnr.com/#book): Reserve your event date
+- [Packages](https://partynowrentalspnr.com/#packages): Classic, Luxury, and Custom
+- [Contact](https://partynowrentalspnr.com/#contact): Phone, email, Instagram
+- [Spanish site](https://partynowrentalspnr.com/index-es.html): Sitio en español
+
+## Service areas
+- [Los Angeles](https://partynowrentalspnr.com/los-angeles.html)
+- [Pasadena](https://partynowrentalspnr.com/pasadena.html)
+- [Glendale](https://partynowrentalspnr.com/glendale.html)
+- [Burbank](https://partynowrentalspnr.com/burbank.html)
+- [Arcadia](https://partynowrentalspnr.com/arcadia.html)
+- [Santa Clarita](https://partynowrentalspnr.com/santa-clarita.html)
+- [West Covina](https://partynowrentalspnr.com/west-covina.html)
+- [Whittier](https://partynowrentalspnr.com/whittier.html)
