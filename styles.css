@@ -67,3 +67,7 @@
 
 .quote-link{display:none;}
 @media(max-width:680px){nav.links.open .quote-link{display:block;}}
+
+/* photo-tile crop fix (show the setup, not the sky) */
+.rcard.photo{background-position:center 72%!important;}
+.occ.photo{background-position:center 62%!important;}
