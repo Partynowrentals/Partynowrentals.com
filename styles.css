@@ -2,7 +2,7 @@
 .hero-note{margin-top:14px;font-size:.85rem;font-weight:600;letter-spacing:.5px;color:var(--maroon);}
 /* ===== Premium upgrades ===== */
 .hero .bg{background:#3a2a25 url('g3.jpg') center/cover no-repeat;}
-.hero .overlay{background:linear-gradient(180deg,rgba(38,18,14,.55),rgba(38,18,14,.74));}
+.hero .overlay{background:linear-gradient(180deg,rgba(30,14,10,.66),rgba(30,14,10,.86));}
 .hero,.hero h1,.hero .tagline,.hero .trust-line{color:#fff;}
 .hero h1 .em{color:#f3c9a6;}
 .hero h1 .rot{color:#fff;border-bottom-color:rgba(255,255,255,.5);}
