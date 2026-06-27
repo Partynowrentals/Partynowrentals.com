@@ -72,7 +72,7 @@
         <small>EST. SOUTHERN CALIFORNIA</small>
       </span>
     </a>
-    <nav class="links" id="navlinks">
+    <nav class="links" id="navlinks"><a href="#" class="quote-link" onclick="openQuote();return false;">Get a Quote</a>
       <a href="#packages">Packages</a>
       <a href="#rentals">Rentals</a>
       <a href="#occasions">Occasions</a>
@@ -81,7 +81,7 @@
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-cta">
-      <a href="#book" class="btn btn-maroon">Reserve Your Date</a>
+      <button type="button" class="btn btn-maroon" onclick="openQuote()">Get a Quote</button>
       <button class="menu-toggle" id="menuBtn" aria-label="Menu">☰</button>
     </div>
   </div>
@@ -94,7 +94,7 @@
   <div class="content">
     <h1>Party &amp; Event Rentals in <span class="em">Glendora</span></h1>
     <p class="sub">Tables, chairs, linens, heaters &amp; full setups — we deliver, set up &amp; pick up. You just enjoy.</p>
-    <div class="cta-row"><a href="tel:16262576514" class="btn btn-gold"><svg class="icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> Call or Text (626) 257-6514</a><a href="#book" class="btn btn-outline-dark">Check Your Date</a></div>
+    <div class="cta-row"><button type="button" class="btn btn-gold" onclick="openQuote()">⚡ Get Your Instant Quote</button><a href="tel:16262576514" class="btn btn-outline-dark">Call or Text (626) 257-6514</a></div>
     <p class="hero-note">Family-Owned • Insured • Same-Week Booking Available</p>
   </div>
 </section>
@@ -580,5 +580,55 @@
 </script>
 <div id="lb" onclick="this.style.display='none'"><img id="lbimg" alt=""></div>
 <script>(function(){document.querySelectorAll(".gitem img").forEach(function(im){im.addEventListener("click",function(){var b=document.getElementById("lb");document.getElementById("lbimg").src=this.src;b.style.display="flex";});});try{var els=document.querySelectorAll("section:not(#top), .gitem, .pkg, .rcard, .occ, .step");els.forEach(function(e){e.classList.add("reveal");});if("IntersectionObserver" in window){var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target);}});},{threshold:.12});els.forEach(function(e){io.observe(e);});}setTimeout(function(){document.querySelectorAll(".reveal").forEach(function(e){e.classList.add("in");});},1500);}catch(e){}})();</script>
+<script>
+(function(){
+ var es=(document.documentElement.lang||'').toLowerCase().indexOf('es')===0;
+ var KEY='774d7cb8-9095-4adf-b928-88fac4b2d1c4';
+ var L= es ? {title:'Cotización Instantánea',back:'Atrás',next:'Siguiente',submit:'Obtener Mi Cotización',
+   occ:['¿Cuál es la ocasión?',['Boda','Cumpleaños','Baby Shower','Quinceañera','Graduación','Evento Corporativo','Otro']],
+   gst:['¿Cuántos invitados?',['1-25','25','50','75','100','150','200','250','300','300+']],
+   pkg:['¿Qué buscas?',['Paquete Clásico','Paquete de Lujo','Personalizado','No estoy seguro/a']],
+   dat:'¿Cuándo es tu evento?',con:'¿A dónde enviamos tu cotización?',name:'Nombre completo',phone:'Teléfono',email:'Correo (opcional)',
+   okT:'¡Listo!',okB:function(n){return 'Gracias'+(n?', '+n:'')+' — recibirás tu cotización en 1–2 minutos por texto o correo. ¿La necesitas ya? Llama o textea al (626) 257-6514.';},err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
+ : {title:'Get Your Instant Quote',back:'Back',next:'Next',submit:'Get My Quote',
+   occ:["What's the occasion?",['Wedding','Birthday','Baby Shower','Quinceañera','Graduation','Corporate Event','Other']],
+   gst:['How many guests?',['1-25','25','50','75','100','150','200','250','300','300+']],
+   pkg:['What are you looking for?',['Classic Package','Luxury Package','Custom Setup','Not sure yet']],
+   dat:"When's your event?",con:'Where should we send your quote?',name:'Full name',phone:'Phone',email:'Email (optional)',
+   okT:"You're all set!",okB:function(n){return 'Thanks'+(n?', '+n:'')+' — you will receive your custom quote within 1–2 minutes by text or email. Need it now? Call or text (626) 257-6514.';},err:'Something went wrong. Please call or text (626) 257-6514.'};
+ var st={},step=0,steps=['occ','gst','pkg','dat','con'];
+ var m=document.createElement('div');m.className='qm';
+ m.innerHTML='<div class="qm-box"><button class="qm-close" aria-label="Close">&times;</button><div class="qm-prog"><span></span></div><div class="qm-body"></div></div>';
+ document.body.appendChild(m);
+ var body=m.querySelector('.qm-body'),prog=m.querySelector('.qm-prog span');
+ m.querySelector('.qm-close').onclick=function(){m.classList.remove('open');};
+ m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});
+ function render(){
+  prog.style.width=Math.round((step/steps.length)*100)+'%';
+  var key=steps[step],h='';
+  if(key==='occ'||key==='gst'||key==='pkg'){var c=L[key];h='<h3>'+c[0]+'</h3><div class="qm-opts">'+c[1].map(function(o){return '<button type="button" class="qm-opt'+(st[key]===o?' sel':'')+'" data-v="'+o+'">'+o+'</button>';}).join('')+'</div>';}
+  else if(key==='dat'){h='<h3>'+L.dat+'</h3><input type="date" id="qm-date" value="'+(st.dat||'')+'">';}
+  else if(key==='con'){h='<h3>'+L.con+'</h3><input id="qm-name" placeholder="'+L.name+'" value="'+(st.name||'')+'"><input id="qm-phone" type="tel" placeholder="'+L.phone+'" value="'+(st.phone||'')+'"><input id="qm-email" type="email" placeholder="'+L.email+'" value="'+(st.email||'')+'">';}
+  var nav='<div class="qm-nav">'+(step>0?'<button type="button" class="btn btn-outline-dark" id="qm-back">'+L.back+'</button>':'<span></span>');
+  if(key==='dat')nav+='<button type="button" class="btn btn-gold" id="qm-next">'+L.next+'</button>';
+  else if(key==='con')nav+='<button type="button" class="btn btn-gold" id="qm-submit">'+L.submit+'</button>';
+  else nav+='<span></span>';
+  body.innerHTML=h+nav+'</div>';
+  body.querySelectorAll('.qm-opt').forEach(function(b){b.onclick=function(){st[key]=this.getAttribute('data-v');step++;render();};});
+  var bk=document.getElementById('qm-back');if(bk)bk.onclick=function(){step--;render();};
+  var nx=document.getElementById('qm-next');if(nx)nx.onclick=function(){st.dat=document.getElementById('qm-date').value;step++;render();};
+  var sb=document.getElementById('qm-submit');if(sb)sb.onclick=submit;
+ }
+ function submit(){
+  st.name=document.getElementById('qm-name').value;st.phone=document.getElementById('qm-phone').value;st.email=document.getElementById('qm-email').value;
+  if(!st.name||!st.phone){alert(L.name+' + '+L.phone);return;}
+  var sb=document.getElementById('qm-submit');sb.disabled=true;sb.textContent='...';
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:KEY,subject:'Instant Quote — '+(st.occ||'')+' ('+st.name+')',from_name:'Party Now Rentals Website',replyto:st.email,Occasion:st.occ,Guests:st.gst,Package:st.pkg,'Event Date':st.dat,Name:st.name,Phone:st.phone,Email:st.email})})
+   .then(function(r){return r.json();}).then(function(){prog.style.width='100%';body.innerHTML='<div class="qm-success"><h3>'+L.okT+'</h3><p style="color:var(--ink);margin-top:8px;line-height:1.6;">'+L.okB(st.name.split(' ')[0])+'</p><a href="tel:16262576514" class="btn btn-gold" style="margin-top:16px;">(626) 257-6514</a></div>';})
+   .catch(function(){alert(L.err);sb.disabled=false;sb.textContent=L.submit;});
+ }
+ window.openQuote=function(){st={};step=0;render();m.classList.add('open');};
+})();
+</script>
 </body>
 </html>
