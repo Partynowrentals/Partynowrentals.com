@@ -461,7 +461,7 @@
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json();})
       .then(function(res){
-        if(res.success){ formEl.innerHTML='<div style="text-align:center;padding:24px 8px;"><h3 style="font-family:Playfair Display,serif;color:var(--maroon);margin-bottom:8px;font-size:1.4rem;">¡Gracias!</h3><p style="color:var(--ink);">Recibimos tu solicitud y te contactaremos pronto para confirmar tu fecha.</p></div>'; }
+        if(res.success){ gtag('event','conversion',{'send_to':'AW-18273864548/z2jtCIz6qsYcEOSW1IlE'}); formEl.innerHTML='<div style="text-align:center;padding:24px 8px;"><h3 style="font-family:Playfair Display,serif;color:var(--maroon);margin-bottom:8px;font-size:1.4rem;">¡Gracias!</h3><p style="color:var(--ink);">Recibimos tu solicitud y te contactaremos pronto para confirmar tu fecha.</p></div>'; }
         else { alert('Lo sentimos, algo salió mal. Llama o textea al (626) 257-6514.'); if(btn){btn.disabled=false;} }
       })
       .catch(function(){ alert('Lo sentimos, algo salió mal. Llama o textea al (626) 257-6514.'); if(btn){btn.disabled=false;} });
@@ -623,7 +623,7 @@
   if(!st.name||!st.phone){alert(L.name+' + '+L.phone);return;}
   var sb=document.getElementById('qm-submit');sb.disabled=true;sb.textContent='...';
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:KEY,subject:'Instant Quote — '+(st.occ||'')+' ('+st.name+')',from_name:'Party Now Rentals Website',replyto:st.email,Occasion:st.occ,Guests:st.gst,Package:st.pkg,'Event Date':st.dat,Name:st.name,Phone:st.phone,Email:st.email})})
-   .then(function(r){return r.json();}).then(function(){prog.style.width='100%';body.innerHTML='<div class="qm-success"><h3>'+L.okT+'</h3><p style="color:var(--ink);margin-top:8px;line-height:1.6;">'+L.okB(st.name.split(' ')[0])+'</p><a href="tel:16262576514" class="btn btn-gold" style="margin-top:16px;">(626) 257-6514</a></div>';})
+   .then(function(r){return r.json();}).then(function(){gtag('event','conversion',{'send_to':'AW-18273864548/z2jtCIz6qsYcEOSW1IlE'}); prog.style.width='100%';body.innerHTML='<div class="qm-success"><h3>'+L.okT+'</h3><p style="color:var(--ink);margin-top:8px;line-height:1.6;">'+L.okB(st.name.split(' ')[0])+'</p><a href="tel:16262576514" class="btn btn-gold" style="margin-top:16px;">(626) 257-6514</a></div>';})
    .catch(function(){alert(L.err);sb.disabled=false;sb.textContent=L.submit;});
  }
  window.openQuote=function(){st={};step=0;render();m.classList.add('open');};
