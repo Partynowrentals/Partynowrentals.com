@@ -241,25 +241,7 @@
         <label for="bk-phone">Teléfono</label>
         <input id="bk-phone" type="tel" required placeholder="(___) ___-____" />
         <label for="bk-email">Correo</label>
-        <input id="bk-email" type="email" placeholder="tu@correo.com" />
-        <label for="bk-type">Tipo de evento</label>
-        <select id="bk-type">
-          <option>Boda</option><option>Cumpleaños</option><option>Baby Shower</option>
-          <option>Graduación</option><option>Evento Corporativo</option><option>Quinceañera</option><option>Otro / Personalizado</option>
-        </select>
-        <label for="bk-pkg">Paquete</label>
-        <select id="bk-pkg">
-          <option>Paquete Clásico</option>
-          <option>Paquete de Lujo</option>
-          <option>Personalizado / a la carta</option>
-        </select>
-        <label for="bk-guests">¿Cuántos invitados?</label>
-        <select id="bk-guests">
-          <option>1-25</option><option>25</option><option>50</option><option>75</option><option>100</option>
-          <option>150</option><option>200</option><option>250</option><option>300</option><option>300+</option>
-        </select>
-        <label for="bk-msg">¿Algo más? (tema, ubicación, extras)</label>
-        <textarea id="bk-msg" placeholder="Cuéntanos sobre tu evento..."></textarea>
+        <input id="bk-email" type="email" required placeholder="tu@correo.com" />
         <button type="submit" class="btn btn-gold" id="bk-submit" disabled>Elige una fecha para continuar</button>
         <p class="bk-note">¿Prefieres hablar? Llama o textea al <a href="tel:16262576514">(626) 257-6514</a></p>
       </form>
@@ -384,21 +366,8 @@
         <input id="name" name="name" type="text" required placeholder="Nombre y apellido" />
         <label for="phone">Teléfono</label>
         <input id="phone" name="phone" type="tel" required placeholder="(___) ___-____" />
-        <label for="date">Fecha del Evento</label>
-        <input id="date" name="date" type="date" />
-        <label for="type">Tipo de Evento</label>
-        <select id="type" name="type">
-          <option>Boda</option><option>Cumpleaños</option><option>Baby Shower</option>
-          <option>Graduación</option><option>Evento Corporativo</option><option>Otro / Personalizado</option>
-        </select>
-        <label for="pkg">Interesado En</label>
-        <select id="pkg" name="pkg">
-          <option>Paquete Clásico</option>
-          <option>Paquete de Lujo</option>
-          <option>Personalizado / a la carta</option>
-        </select>
-        <label for="msg">Detalles (invitados, tema, ubicación)</label>
-        <textarea id="msg" name="msg" placeholder="Cuéntanos sobre tu evento..."></textarea>
+        <label for="email">Correo</label>
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder="tu@correo.com" />
         <button type="submit" class="btn btn-gold">Pide Tu Cotización</button>
       </form>
     </div>
@@ -478,11 +447,10 @@
     var f=e.target;
     postForm({
       access_key:FORM_KEY,
-      subject:'Solicitud de Cotización - '+f.type.value+' ('+f.name.value+')',
+      subject:'Solicitud de Cotización - '+f.name.value,
       from_name:'Party Now Rentals Website',
-      replyto:'',
-      Name:f.name.value, Phone:f.phone.value, 'Event Date':f.date.value,
-      'Event Type':f.type.value, 'Interested In':f.pkg.value, Details:f.msg.value
+      replyto:f.email.value,
+      Name:f.name.value, Phone:f.phone.value, Email:f.email.value
     }, f);
     return false;
   }
@@ -541,12 +509,11 @@
       var g=function(id){return document.getElementById(id).value;};
       postForm({
         access_key:FORM_KEY,
-        subject:'Solicitud de Reserva - '+g('bk-type')+' on '+iso(selected)+' ('+g('bk-name')+')',
+        subject:'Solicitud de Reserva - '+iso(selected)+' ('+g('bk-name')+')',
         from_name:'Party Now Rentals Website',
         replyto:g('bk-email'),
         'Requested Date':pretty(selected), Name:g('bk-name'), Phone:g('bk-phone'),
-        Email:g('bk-email'), 'Event Type':g('bk-type'), Package:g('bk-pkg'),
-        Guests:g('bk-guests'), Notes:g('bk-msg')
+        Email:g('bk-email')
       }, e.target);
       return false;
     };
@@ -589,50 +556,25 @@
 (function(){
  var es=(document.documentElement.lang||'').toLowerCase().indexOf('es')===0;
  var KEY='774d7cb8-9095-4adf-b928-88fac4b2d1c4';
- var L= es ? {title:'Cotización Instantánea',back:'Atrás',next:'Siguiente',submit:'Continuar',
-   occ:['¿Cuál es la ocasión?',['Boda','Cumpleaños','Baby Shower','Quinceañera','Graduación','Evento Corporativo','Otro']],
-   gst:['¿Cuántos invitados?',['1-25','25','50','75','100','150','200','250','300','300+']],
-   pkg:['¿Qué buscas?',['Paquete Clásico','Paquete de Lujo','Personalizado','No estoy seguro/a']],
-   dat:'¿Cuándo es tu evento?',con:'¿A dónde enviamos tu cotización?',name:'Nombre completo',phone:'Teléfono',email:'Correo (opcional)',
-   err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
- : {title:'Get Your Instant Quote',back:'Back',next:'Next',submit:'Continue',
-   occ:["What's the occasion?",['Wedding','Birthday','Baby Shower','Quinceañera','Graduation','Corporate Event','Other']],
-   gst:['How many guests?',['1-25','25','50','75','100','150','200','250','300','300+']],
-   pkg:['What are you looking for?',['Classic Package','Luxury Package','Custom Setup','Not sure yet']],
-   dat:"When's your event?",con:'Where should we send your quote?',name:'Full name',phone:'Phone',email:'Email (optional)',
-   err:'Something went wrong. Please call or text (626) 257-6514.'};
- var st={},step=0,steps=['occ','gst','pkg','dat','con'];
+ var L= es ? {submit:'Continuar',con:'¿A dónde enviamos tu cotización?',name:'Nombre completo',phone:'Teléfono',email:'Correo',err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
+ : {submit:'Continue',con:'Where should we send your quote?',name:'Full name',phone:'Phone',email:'Email',err:'Something went wrong. Please call or text (626) 257-6514.'};
+ // contact info only: name, phone and email are all required
  var m=document.createElement('div');m.className='qm';
- m.innerHTML='<div class="qm-box"><button class="qm-close" aria-label="Close">&times;</button><div class="qm-prog"><span></span></div><div class="qm-body"></div></div>';
+ m.innerHTML='<div class="qm-box"><button type="button" class="qm-close" aria-label="Close">&times;</button><form id="qm-form" style="background:none;border:none;border-radius:0;padding:0;box-shadow:none;"><h3 style="padding-right:30px;">'+L.con+'</h3><input id="qm-name" type="text" autocomplete="name" required aria-label="'+L.name+'" placeholder="'+L.name+'"><input id="qm-phone" type="tel" autocomplete="tel" required aria-label="'+L.phone+'" placeholder="'+L.phone+'"><input id="qm-email" type="email" autocomplete="email" required aria-label="'+L.email+'" placeholder="'+L.email+'"><button type="submit" class="btn btn-gold" id="qm-submit" style="margin-top:8px;">'+L.submit+'</button></form></div>';
  document.body.appendChild(m);
- var body=m.querySelector('.qm-body'),prog=m.querySelector('.qm-prog span');
+ var form=m.querySelector('#qm-form'),sb=m.querySelector('#qm-submit');
  m.querySelector('.qm-close').onclick=function(){m.classList.remove('open');};
  m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});
- function render(){
-  prog.style.width=Math.round((step/steps.length)*100)+'%';
-  var key=steps[step],h='';
-  if(key==='occ'||key==='gst'||key==='pkg'){var c=L[key];h='<h3>'+c[0]+'</h3><div class="qm-opts">'+c[1].map(function(o){return '<button type="button" class="qm-opt'+(st[key]===o?' sel':'')+'" data-v="'+o+'">'+o+'</button>';}).join('')+'</div>';}
-  else if(key==='dat'){h='<h3>'+L.dat+'</h3><input type="date" id="qm-date" value="'+(st.dat||'')+'">';}
-  else if(key==='con'){h='<h3>'+L.con+'</h3><input id="qm-name" placeholder="'+L.name+'" value="'+(st.name||'')+'"><input id="qm-phone" type="tel" placeholder="'+L.phone+'" value="'+(st.phone||'')+'"><input id="qm-email" type="email" placeholder="'+L.email+'" value="'+(st.email||'')+'">';}
-  var nav='<div class="qm-nav">'+(step>0?'<button type="button" class="btn btn-outline-dark" id="qm-back">'+L.back+'</button>':'<span></span>');
-  if(key==='dat')nav+='<button type="button" class="btn btn-gold" id="qm-next">'+L.next+'</button>';
-  else if(key==='con')nav+='<button type="button" class="btn btn-gold" id="qm-submit">'+L.submit+'</button>';
-  else nav+='<span></span>';
-  body.innerHTML=h+nav+'</div>';
-  body.querySelectorAll('.qm-opt').forEach(function(b){b.onclick=function(){st[key]=this.getAttribute('data-v');step++;render();};});
-  var bk=document.getElementById('qm-back');if(bk)bk.onclick=function(){step--;render();};
-  var nx=document.getElementById('qm-next');if(nx)nx.onclick=function(){st.dat=document.getElementById('qm-date').value;step++;render();};
-  var sb=document.getElementById('qm-submit');if(sb)sb.onclick=submit;
- }
- function submit(){
-  st.name=document.getElementById('qm-name').value;st.phone=document.getElementById('qm-phone').value;st.email=document.getElementById('qm-email').value;
-  if(!st.name||!st.phone){alert(L.name+' + '+L.phone);return;}
-  var sb=document.getElementById('qm-submit');sb.disabled=true;sb.textContent='...';
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:KEY,subject:'Instant Quote — '+(st.occ||'')+' ('+st.name+')',from_name:'Party Now Rentals Website',replyto:st.email,Occasion:st.occ,Guests:st.gst,Package:st.pkg,'Event Date':st.dat,Name:st.name,Phone:st.phone,Email:st.email})})
-   .then(function(r){return r.json();}).then(function(res){if(!res||!res.success)throw new Error('submit failed');prog.style.width='100%';goThanks(es?'thank-you-es.html':'thank-you.html');})
+ form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var f={name:document.getElementById('qm-name'),phone:document.getElementById('qm-phone'),email:document.getElementById('qm-email')},v={},k;
+  for(k in f){v[k]=f[k].value.trim();if(!v[k]){f[k].value='';f[k].focus();return;}}
+  sb.disabled=true;sb.textContent='...';
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:KEY,subject:'Instant Quote — '+v.name,from_name:'Party Now Rentals Website',replyto:v.email,Name:v.name,Phone:v.phone,Email:v.email})})
+   .then(function(r){return r.json();}).then(function(res){if(!res||!res.success)throw new Error('submit failed');goThanks(es?'thank-you-es.html':'thank-you.html');})
    .catch(function(){alert(L.err);sb.disabled=false;sb.textContent=L.submit;});
- }
- window.openQuote=function(){st={};step=0;render();m.classList.add('open');};
+ });
+ window.openQuote=function(){form.reset();sb.disabled=false;sb.textContent=L.submit;m.classList.add('open');try{document.getElementById('qm-name').focus();}catch(x){}};
 })();
 </script>
 </body>
