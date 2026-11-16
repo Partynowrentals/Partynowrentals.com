@@ -453,6 +453,12 @@
   // SETUP (once): 1) visit https://web3forms.com  2) enter PNR@partynowrentalsllc.com
   //               3) copy the Access Key they email you  4) paste it between the quotes below.
   var FORM_KEY="774d7cb8-9095-4adf-b928-88fac4b2d1c4";
+  // after a successful submit: record the Google Ads conversion, then go to the thank-you page
+  function goThanks(url){
+    var done=false; function go(){ if(done) return; done=true; window.location.href=url; }
+    try{ gtag('event','conversion',{'send_to':'AW-18273864548/z2jtCIz6qsYcEOSW1IlE','event_callback':go}); }catch(e){}
+    setTimeout(go,1000);
+  }
   function postForm(data, formEl){
     if(!FORM_KEY || FORM_KEY.indexOf('REPLACE')===0){
       alert('This form is almost ready \u2014 add your free Web3Forms access key to start receiving messages by email.'); return;
@@ -461,7 +467,7 @@
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json();})
       .then(function(res){
-        if(res.success){ gtag('event','conversion',{'send_to':'AW-18273864548/z2jtCIz6qsYcEOSW1IlE'}); formEl.innerHTML='<div style="text-align:center;padding:24px 8px;"><h3 style="font-family:Playfair Display,serif;color:var(--maroon);margin-bottom:8px;font-size:1.4rem;">¡Gracias!</h3><p style="color:var(--ink);">Recibimos tu solicitud y te contactaremos pronto para confirmar tu fecha.</p></div>'; }
+        if(res.success){ goThanks('thank-you-es.html'); }
         else { alert('Lo sentimos, algo salió mal. Llama o textea al (626) 257-6514.'); if(btn){btn.disabled=false;} }
       })
       .catch(function(){ alert('Lo sentimos, algo salió mal. Llama o textea al (626) 257-6514.'); if(btn){btn.disabled=false;} });
@@ -583,18 +589,18 @@
 (function(){
  var es=(document.documentElement.lang||'').toLowerCase().indexOf('es')===0;
  var KEY='774d7cb8-9095-4adf-b928-88fac4b2d1c4';
- var L= es ? {title:'Cotización Instantánea',back:'Atrás',next:'Siguiente',submit:'Obtener Mi Cotización',
+ var L= es ? {title:'Cotización Instantánea',back:'Atrás',next:'Siguiente',submit:'Continuar',
    occ:['¿Cuál es la ocasión?',['Boda','Cumpleaños','Baby Shower','Quinceañera','Graduación','Evento Corporativo','Otro']],
    gst:['¿Cuántos invitados?',['1-25','25','50','75','100','150','200','250','300','300+']],
    pkg:['¿Qué buscas?',['Paquete Clásico','Paquete de Lujo','Personalizado','No estoy seguro/a']],
    dat:'¿Cuándo es tu evento?',con:'¿A dónde enviamos tu cotización?',name:'Nombre completo',phone:'Teléfono',email:'Correo (opcional)',
-   okT:'¡Listo!',okB:function(n){return 'Gracias'+(n?', '+n:'')+' — recibirás tu cotización en 1–2 minutos por texto o correo. ¿La necesitas ya? Llama o textea al (626) 257-6514.';},err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
- : {title:'Get Your Instant Quote',back:'Back',next:'Next',submit:'Get My Quote',
+   err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
+ : {title:'Get Your Instant Quote',back:'Back',next:'Next',submit:'Continue',
    occ:["What's the occasion?",['Wedding','Birthday','Baby Shower','Quinceañera','Graduation','Corporate Event','Other']],
    gst:['How many guests?',['1-25','25','50','75','100','150','200','250','300','300+']],
    pkg:['What are you looking for?',['Classic Package','Luxury Package','Custom Setup','Not sure yet']],
    dat:"When's your event?",con:'Where should we send your quote?',name:'Full name',phone:'Phone',email:'Email (optional)',
-   okT:"You're all set!",okB:function(n){return 'Thanks'+(n?', '+n:'')+' — you will receive your custom quote within 1–2 minutes by text or email. Need it now? Call or text (626) 257-6514.';},err:'Something went wrong. Please call or text (626) 257-6514.'};
+   err:'Something went wrong. Please call or text (626) 257-6514.'};
  var st={},step=0,steps=['occ','gst','pkg','dat','con'];
  var m=document.createElement('div');m.className='qm';
  m.innerHTML='<div class="qm-box"><button class="qm-close" aria-label="Close">&times;</button><div class="qm-prog"><span></span></div><div class="qm-body"></div></div>';
@@ -623,7 +629,7 @@
   if(!st.name||!st.phone){alert(L.name+' + '+L.phone);return;}
   var sb=document.getElementById('qm-submit');sb.disabled=true;sb.textContent='...';
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:KEY,subject:'Instant Quote — '+(st.occ||'')+' ('+st.name+')',from_name:'Party Now Rentals Website',replyto:st.email,Occasion:st.occ,Guests:st.gst,Package:st.pkg,'Event Date':st.dat,Name:st.name,Phone:st.phone,Email:st.email})})
-   .then(function(r){return r.json();}).then(function(){gtag('event','conversion',{'send_to':'AW-18273864548/z2jtCIz6qsYcEOSW1IlE'}); prog.style.width='100%';body.innerHTML='<div class="qm-success"><h3>'+L.okT+'</h3><p style="color:var(--ink);margin-top:8px;line-height:1.6;">'+L.okB(st.name.split(' ')[0])+'</p><a href="tel:16262576514" class="btn btn-gold" style="margin-top:16px;">(626) 257-6514</a></div>';})
+   .then(function(r){return r.json();}).then(function(res){if(!res||!res.success)throw new Error('submit failed');prog.style.width='100%';goThanks(es?'thank-you-es.html':'thank-you.html');})
    .catch(function(){alert(L.err);sb.disabled=false;sb.textContent=L.submit;});
  }
  window.openQuote=function(){st={};step=0;render();m.classList.add('open');};
