@@ -42,7 +42,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
 
@@ -93,7 +93,7 @@
   <div class="content">
     <h1>Rentas para Fiestas y Eventos en <span class="em">Santa Clarita</span></h1>
     <p class="sub">Mesas, sillas, manteles, calentadores y montajes completos — entregamos, instalamos y recogemos. Tú solo disfrutas.</p>
-    <div class="cta-row"><button type="button" class="btn btn-gold" onclick="openQuote()">⚡ Cotización Instantánea</button><a href="tel:16262576514" class="btn btn-outline-dark">Llama o Textea (626) 257-6514</a></div>
+    <div class="cta-row"><button type="button" class="btn btn-gold" onclick="openQuote()">Crear Mi Fiesta</button><a href="tel:16262576514" class="btn btn-outline-dark">Llama o Textea (626) 257-6514</a></div>
     <p class="hero-note">Negocio Familiar • Asegurado • Reservas el Mismo Día</p>
   </div>
 </section>
@@ -445,8 +445,8 @@
 (function(){
  var es=(document.documentElement.lang||'').toLowerCase().indexOf('es')===0;
  var KEY='774d7cb8-9095-4adf-b928-88fac4b2d1c4';
- var L= es ? {submit:'Continuar',con:'¿A dónde enviamos tu cotización?',name:'Nombre completo',phone:'Teléfono',email:'Correo',err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
- : {submit:'Continue',con:'Where should we send your quote?',name:'Full name',phone:'Phone',email:'Email',err:'Something went wrong. Please call or text (626) 257-6514.'};
+ var L= es ? {submit:'Continuar',con:'¿Cuál es tu nombre?',name:'Nombre completo',phone:'Teléfono',email:'Correo',err:'Algo salió mal. Llama o textea al (626) 257-6514.'}
+ : {submit:'Continue',con:"What's your name?",name:'Full name',phone:'Phone',email:'Email',err:'Something went wrong. Please call or text (626) 257-6514.'};
  // contact info only: name, phone and email are all required
  var m=document.createElement('div');m.className='qm';
  m.innerHTML='<div class="qm-box"><button type="button" class="qm-close" aria-label="Close">&times;</button><form id="qm-form" style="background:none;border:none;border-radius:0;padding:0;box-shadow:none;"><h3 style="padding-right:30px;">'+L.con+'</h3><input id="qm-name" type="text" autocomplete="name" required aria-label="'+L.name+'" placeholder="'+L.name+'"><input id="qm-phone" type="tel" autocomplete="tel" required aria-label="'+L.phone+'" placeholder="'+L.phone+'"><input id="qm-email" type="email" autocomplete="email" required aria-label="'+L.email+'" placeholder="'+L.email+'"><button type="submit" class="btn btn-gold" id="qm-submit" style="margin-top:8px;">'+L.submit+'</button></form></div>';
