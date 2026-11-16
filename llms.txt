@@ -4,9 +4,8 @@
 
 ## Main pages
 - [Home](https://partynowrentalspnr.com/): Event rentals in Southern California
-- [Booking calendar](https://partynowrentalspnr.com/#book): Reserve your event date
 - [Packages](https://partynowrentalspnr.com/#packages): Classic, Luxury, and Custom
-- [Contact](https://partynowrentalspnr.com/#contact): Phone, email, Instagram
+- [Contact / request a quote](https://partynowrentalspnr.com/#contact): Quote form, phone, email, Instagram
 - [Spanish site](https://partynowrentalspnr.com/index-es.html): Sitio en español
 
 ## Service areas
