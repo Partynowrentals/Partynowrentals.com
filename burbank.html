@@ -375,12 +375,8 @@
   // SETUP (once): 1) visit https://web3forms.com  2) enter PNR@partynowrentalsllc.com
   //               3) copy the Access Key they email you  4) paste it between the quotes below.
   var FORM_KEY="774d7cb8-9095-4adf-b928-88fac4b2d1c4";
-  // after a successful submit: record the Google Ads conversion, then go to the thank-you page
-  function goThanks(url){
-    var done=false; function go(){ if(done) return; done=true; window.location.href=url; }
-    try{ gtag('event','conversion',{'send_to':'AW-18273864548/z2jtCIz6qsYcEOSW1IlE','event_callback':go}); }catch(e){}
-    setTimeout(go,1000);
-  }
+  // after a successful submit: go to the thank-you page, which records the Google Ads conversion
+  function goThanks(url){ window.location.href=url; }
   function postForm(data, formEl){
     if(!FORM_KEY || FORM_KEY.indexOf('REPLACE')===0){
       alert('This form is almost ready \u2014 add your free Web3Forms access key to start receiving messages by email.'); return;
